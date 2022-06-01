@@ -1,2 +1,2 @@
 #!/bin/bash
-$WATER | tr water 01234 bestchol
+WATER | tr water 01234 bestchol
