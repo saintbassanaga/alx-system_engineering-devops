@@ -1,2 +1,2 @@
 #!/bin/bash
-WATER | tr water 01234 bestchol
+printf “%o” 44834284 → 253016754
