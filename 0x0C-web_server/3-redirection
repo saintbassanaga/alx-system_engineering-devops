@@ -9,7 +9,7 @@ ufw allow 'Nginx HTTP'
 echo "Holberton School" >> /var/www/html/index.html
 
 #Give the user  ownership to website files
-sudo chown -R $USER:$USER /var/www/html
+sudo chown -R "$USER:$USER" /var/www/html
 sudo chmod -R 755 /var/www
 
 # Redirect to /redirect_me to a youtube video
