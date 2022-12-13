@@ -12,7 +12,14 @@ sudo chown -R $USER:$USER /var/www/html
 sudo chmod -R 755 /var/www
 
 # Redirect to /redirect_me to a youtube video
-sed -i '37i\rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 301 permanent;' /etc/nginx/sites-available/default
+sed -i '37i\rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+
+server 
+{
+  listen 80 default_server
+  server_name_ _;
+  return 301 https://nginx1$request_uri
+}
 
 sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx restart
