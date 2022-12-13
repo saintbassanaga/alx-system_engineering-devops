@@ -10,7 +10,18 @@ echo "Hello World!" | sudo tee /var/www/html/index.html
 #Give the user  ownership to website files
 sudo chown -R $USER:$USER /var/www/html
 sudo chmod -R 755 /var/www
-
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+        server_name _;
+        location / {
+   rewrite ^/test1(.*) http://www.google.com permanent;
+   rewrite ^/test2(.*) http://www.google.com;
+                try_files $uri $uri/ =404;
+        }
+}
 # Redirect to /redirect_me to a youtube video
 sed -i 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
