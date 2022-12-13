@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+<<<<<<< HEAD
 # Install nginx and start it
 apt-get -y install nginx
 
@@ -16,3 +17,16 @@ sudo chmod -R 755 /var/www
 sed -i '37i\rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 service nginx start
+=======
+# install nginx on my remote server
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo ufw allow 'Nginx HTTP'
+sudo service nginx start
+echo "Hello World!" | sudo tee /var/www/html/index.html
+new_string='server_name _;\n\n\trewrite \^\/redirect_me https:\/\/www.youtube.com\/watch\?v=QH2-TGUlwu4 permanent;/'
+sudo sed -i "s/server_name _;\$/${new_string}" /etc/nginx/sites-available/default
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
+>>>>>>> a7b169b3b4b7c8242e6b296b160c30e1e63dd828
