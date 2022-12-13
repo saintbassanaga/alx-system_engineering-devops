@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+<<<<<<< HEAD
 # install nginx on my remote server
 
 sudo apt-get update
@@ -8,3 +9,14 @@ sudo service nginx start
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 
+=======
+# Bash script that configures a new Ubuntu machine to respect above requirements (this script will be run on the server itself):
+# Install nginx on your web-01 server
+# Nginx should be listening on port 80
+# When querying Nginx at its root / with a GET request (requesting a page) using curl, it must return a page that contains the string Hello World!
+
+sudo apt-get update -y
+sudo apt-get install -y nginx
+echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo service nginx start
+>>>>>>> 5f25988ad1608de2a310cd019718e7a62f59f89b
