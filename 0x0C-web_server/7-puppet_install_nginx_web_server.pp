@@ -14,7 +14,7 @@ file_line { 'title':
   ensure   => present,
   path     => '/etc/nginx/sites-available/default',
   after    => 'server_name _;',
-  line     => 'rewrite ^/redirect_me https://juanfe9118.github.io/Bass-Love/ permanent;',
+  line     => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
   multiple => true
 }
 
