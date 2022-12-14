@@ -12,8 +12,7 @@ root        /etc/nginx/html;
 index       index.html;
 server_name_;
 location / {
-		 rewrite ^/redirect_me(.*) https://www.youtube.com/watch?v=QH2-TGUlwu4;
-		 try_files $uri $uri/=404 ;
+		 rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4;
 		 }
 }" > /etc/nginx/sites-available/default
 
