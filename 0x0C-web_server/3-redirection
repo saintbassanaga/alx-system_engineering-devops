@@ -8,6 +8,7 @@ echo "Holberton School" > /etc/nginx/html/index.html
 echo "server {
 listen      80 default_server;
 listen      [::]:80 default_server;
+root /var/www/html;
 root        /etc/nginx/html;
 index       index.html;
 server_name_;
