@@ -1,23 +1,24 @@
-# Install nginx with puppet
+# Puppet script that configures a "nginx" web server in an ubuntu 16.04 machine
+
 package { 'nginx':
-  ensure   => '1.18.0',
-  provider => 'apt',
+  ensure => installed,
+  name   => 'nginx',
 }
 
-file { 'Hello World':
-  path    => '/var/www/html/index.nginx-debian.html',
-  content => 'Hello World',
+file { '/var/www/html/index.html':
+  content => 'Hello World!',
+  path    => '/var/www/html/index.html'
 }
 
-file_line { 'Hello World':
-  path  => '/etc/nginx/sites-available/default',
-  after => 'server_name _;',
-  line  => '\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
+file_line { 'title':
+  ensure   => present,
+  path     => '/etc/nginx/sites-available/default',
+  after    => 'server_name _;',
+  line     => 'rewrite ^/redirect_me https://juanfe9118.github.io/Bass-Love/ permanent;',
+  multiple => true
 }
 
-exec { 'service':
-  command  => 'service nginx start',
-  provider => 'shell',
-  user     => 'root',
-  path     => '/usr/sbin/service',
+service { 'nginx':
+  ensure  => running,
+  require => Package['nginx']
 }
