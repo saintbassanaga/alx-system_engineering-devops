@@ -9,6 +9,8 @@ echo "server {
     root   /var/www/html;
     index  index.html index.htm index.nginx-debian.html;
     server_name 62229-web-01;
+    location /{
     rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent
+    }
 }" > /etc/nginx/sites-available/default
 service nginx restart
