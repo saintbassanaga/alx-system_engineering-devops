@@ -3,6 +3,7 @@
 apt-get update
 apt-get -y install nginx
 echo 'Hello World!' > /var/www/html/index.html
+service nginx start
 echo "server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -11,4 +12,4 @@ echo "server {
     return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent
     }
 }" > /etc/nginx/sites-available/default
-service nginx restart
+service nginx reload
