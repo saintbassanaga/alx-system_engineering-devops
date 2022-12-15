@@ -6,12 +6,5 @@ sudo apt-get install -y nginx
 sudo ufw allow 'Nginx HTTP'
 sudo service nginx start
 echo "Hello World!" | sudo tee /var/www/html/index.html
-echo "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name _;
-    location =/redirect_me {
-    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent
-    }
-}" > /etc/nginx/sites-available/default
+echo "rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;" > /etc/nginx/sites-available/default
 service nginx reload
