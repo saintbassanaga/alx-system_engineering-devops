@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#Nginx must be running, and listening on port 80 in 5 lines
+sed -i "s/8080/80/g" /etc/nginx/sites-enabled/default
+service nginx restart
+rm /run/nginx.pid
