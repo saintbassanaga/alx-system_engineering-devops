@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
-# Install and configure HAproxy on lb-01
-apt update
-apt -y install haproxy
+# Installs and setup haproxy
+
+apt-get -y update
+apt-get install -y haproxy
+
 echo -e "\n# Set ENABLED to 1 if you want the init script to start haproxy." >> /etc/default/haproxy
-echo "ENABLED=1" >> /etc/default/haproxy
+echo "ENABLED=1" > /etc/default/haproxy
+
 echo -e "\nfrontend www\n\tbind *:80" >> /etc/haproxy/haproxy.cfg
 echo -e "\tdefault_backend web-backend" >> /etc/haproxy/haproxy.cfg
 echo -e "\nbackend web-backend\n\tbalance roundrobin" >> /etc/haproxy/haproxy.cfg
-echo -e "\tserver web-01 100.25.114.68:80 check" >> /etc/haproxy/haproxy.cfg
-echo -e "\tserver web-02 54.89.194.97:80 check" >> /etc/haproxy/haproxy.cfg
-service haproxy restart
+
+# Listen to web1 and web2 servers                                                                              
+
+echo "
+   \toption forwardfor
+   \tserver 62229-web-01 52.91.127.212:80 check
+   \tserver 62229-web-02 18.206.233.129:80 check
+" >> /etc/haproxy/haproxy.cfg
+
+sudo service haproxy start
