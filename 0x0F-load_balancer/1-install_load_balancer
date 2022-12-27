@@ -15,8 +15,8 @@ echo -e "\nbackend web-backend\n\tbalance roundrobin" >> /etc/haproxy/haproxy.cf
 
 echo "
    \toption forwardfor
-   \tserver 62229-web-01 52.91.127.212:80 check
-   \tserver 62229-web-02 18.206.233.129:80 check
+   \tserver web-01 52.91.127.212:80 check
+   \tserver web-02 18.206.233.129:80 check
 " >> /etc/haproxy/haproxy.cfg
 
 sudo service haproxy start
