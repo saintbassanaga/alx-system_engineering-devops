@@ -45,7 +45,7 @@ frontend web_server
 	use_backend letsencrypt-backend if letsencrypt-acl
 	default_backend web_server
 frontend www-https
-	bind *:443 ssl crt /etc/haproxy/certs/www.ericwebserver.tech.pem
+	bind *:443 ssl crt /bind *:443 ssl crt /etc/ssl/private/example.pem
 	reqadd X-Forwarded-Proto:\ https
 	default_backend www-backend
 
