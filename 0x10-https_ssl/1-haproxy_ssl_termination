@@ -44,6 +44,10 @@ frontend web_server
 	redirect scheme https if !{ ssl_fc }
 	use_backend letsencrypt-backend if letsencrypt-acl
 	default_backend web_server
+frontend www-https
+	bind *:443 ssl crt /etc/haproxy/certs/www.ericwebserver.tech.pem
+	reqadd X-Forwarded-Proto:\ https
+	default_backend www-backend
 
 backend web_server
 	balance roundrobin
