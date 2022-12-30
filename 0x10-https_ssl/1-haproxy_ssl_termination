@@ -22,7 +22,7 @@ global
 
 defaults
 	log	global
-	mode	http
+	mode	https
 	option	httplog
 	option	dontlognull
         timeout connect 5000
