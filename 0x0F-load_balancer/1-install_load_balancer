@@ -1,22 +1,47 @@
-#!/usr/bin/env bash
+##!/usr/bin/env bash
 # Installs and setup haproxy
 
-apt-get -y update
-apt-get install -y haproxy
+#apt-get -y update
+#apt-get install -y haproxy
 
-echo -e "\n# Set ENABLED to 1 if you want the init script to start haproxy." >> /etc/default/haproxy
-echo "ENABLED=1" > /etc/default/haproxy
+#echo -e "\n# Set ENABLED to 1 if you want the init script to start haproxy." >> /etc/default/haproxy
+#echo "ENABLED=1" > /etc/default/haproxy
 
-echo -e "\nfrontend www\n\tbind *:80" >> /etc/haproxy/haproxy.cfg
-echo -e "\tdefault_backend web-backend" >> /etc/haproxy/haproxy.cfg
-echo -e "\nbackend web-backend\n\tbalance roundrobin" >> /etc/haproxy/haproxy.cfg
+#echo -e "\nfrontend www\n\tbind *:80" >> /etc/haproxy/haproxy.cfg
+#echo -e "\tdefault_backend web-backend" >> /etc/haproxy/haproxy.cfg
+#echo -e "\nbackend web-backend\n\tbalance roundrobin" >> /etc/haproxy/haproxy.cfg
 
 # Listen to web1 and web2 servers                                                                              
 
-echo "
-   \toption forwardfor
-   \tserver web-01 52.91.127.212:80 check
-   \tserver web-02 18.206.233.129:80 check
-" >> /etc/haproxy/haproxy.cfg
+#echo "\toption forwardfor\tserver web-01 52.91.127.212:80 check\tserver web-02 18.206.233.129:80 check" >> /etc/haproxy/haproxy.cfg
+# sudo service haproxy start
 
-sudo service haproxy start
+
+#!/usr/bin/env bash
+# Create a script to install and configure HAProxy on lb-01 server
+# Configure HAProxy to send traffic to web-01 and web-02 servers
+# Distribute requests using a roundrobin algorithm
+# Make sure that HAProxy can be managed via an init script
+# Install and configure HAproxy on my lb-01 server.
+sudo apt-get -y update
+apt-get -y install haproxy
+
+# edit config file
+server_config=\
+"
+frontend  ehoneah-frontend
+        bind *:80
+        mode http
+        default_backend ehoneah-backend
+backend ehoneah-backend
+        balance roundrobin
+        server 63210-web-01 100.25.19.204:80 check
+        server 63210-web-02 54.157.159.85:80 check
+"
+echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
+
+# enable haproxy to be started by init script
+
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+
+sudo service haproxy restart
