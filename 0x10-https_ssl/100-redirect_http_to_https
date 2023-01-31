@@ -46,5 +46,5 @@ frontend www-https
 
 backend www-backend
         balance roundrobin
-        server 62221-web-02 18.206.233.129:80 check
-        server 62221-web-01 54.173.34.141:80 check
+        server 62229-web-02 18.206.233.129:80 check
+        server 62229-web-01 54.173.34.141:80 check
