@@ -13,7 +13,4 @@ def number_of_subscribers(subreddit):
                          rv:68.0) Gecko/20100101 FirefoxFirefox/68.0'}
     with requests.session() as client:
         info = client.get(url, headers=headers, allow_redirects=False).json()
-        try:
-            return info.get('data', {}).get('subscribers', 0)
-        except Exception:
-            return 0
+        return info.get('data', {}).get('subscribers', 0)
