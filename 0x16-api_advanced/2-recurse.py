@@ -30,4 +30,4 @@ def recurse(subreddit, hot_list=[], count=0, after=None):
         hot_posts,
         data.json().get('data').get('count'),
         data.json().get('data').get('after')
-   )
+                 )
