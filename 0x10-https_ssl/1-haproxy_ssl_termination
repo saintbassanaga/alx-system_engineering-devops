@@ -1,12 +1,4 @@
-
-global
-        log /dev/log    local0
-        log /dev/log    local1 notice
-        chroot /var/lib/haproxy
-        stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
-        stats timeout 30s
-        user haproxy
-        group haproxy
+group haproxy
         daemon
 
         # Default SSL material locations
@@ -34,14 +26,19 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend www
+frontend  ehoneah-frontend
         bind *:80
-        bind *:443 ssl crt /etc/letsencrypt/live/www.tecsee.tech/fullchain.pem
-        http-request redirect scheme https unless { ssl_fc }
-        http-request set-header X-Forwarded-Proto https
-        default_backend web-backend
-
-backend web-backend
+        mode http
+        default_backend ehoneah-backend
+backend ehoneah-backend
         balance roundrobin
-	server 62229-web-01 52.91.127.212:80 check
-	server 62229-web-02 18.206.233.129:80 check
+        server web-01 35.168.2.92:80 check
+        server web-02 34.227.92.50:80 check
+frontend www.saintbassanaga.tech
+    bind *:80
+    bind *:443 ssl crt /etc/ssl/certs/saintbassanaga.tech.pem
+    default_backend web_servers
+frontend alx_frontends
+  bind *:443 ssl crt /etc/haproxy/certs/www.saintbassanaga.tech.pem
+  default_backend alx_backend
+
