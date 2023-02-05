@@ -33,16 +33,15 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend  ehoneah-frontend
-        bind *:80
-	bind 0.0.0.0:443
-        mode http
-        default_backend ehoneah-backend
-backend ehoneah-backend
+frontend  http-frontend
+	mode http
+	bind *:80
+	bind *:443 ssl crt /etc/letsencrypt/live/www.arinzeweb3.tech/fullchain.pem
+	http-request redirect scheme https unless { ssl_fc }
+	stats uri /haproxy?stats
+	default_backend http_back
+	
+backend http-backend
         balance roundrobin
         server web-01 35.168.2.92:80 check
         server web-02 34.227.92.50:80 check
-frontend alx_frontends
-  bind *:443
-  default_backend alx_backend
-
