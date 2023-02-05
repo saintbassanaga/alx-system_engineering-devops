@@ -2,12 +2,10 @@
 
 # install and configure firewall for ports 22, 80 and 443
 
-sudo apt-get install ufw
-#sudo ufw allow 22
-#sudo ufw allow 80
-#sudo ufw allow 443
+sudo apt-get install ufw >> 2&>1
+sudo ufw allow 22
+sudo ufw allow 80
+sudo ufw allow 443
 sudo ufw allow 'Nginx Full'
 sudo ufw allow OpenSSH
 sudo ufw --force enable
-
-
