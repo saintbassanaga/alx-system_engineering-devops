@@ -36,12 +36,12 @@ defaults
 frontend  http-frontend
 	mode http
 	bind *:80
-	bind *:443 ssl crt /etc/letsencrypt/live/www.arinzeweb3.tech/fullchain.pem
+	bind *:443 ssl crt /etc/letsencrypt/live/www.arinzeweb3.tech/www.saintbassanaga.tech.pem
 	http-request redirect scheme https unless { ssl_fc }
 	stats uri /haproxy?stats
 	default_backend http_back
 	
-backend http-backend
+backend http_backend
         balance roundrobin
         server web-01 35.168.2.92:80 check
         server web-02 34.227.92.50:80 check
