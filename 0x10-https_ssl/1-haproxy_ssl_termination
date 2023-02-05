@@ -35,16 +35,13 @@ defaults
 
 frontend  ehoneah-frontend
         bind *:80
+	bind 0.0.0.0:443
         mode http
         default_backend ehoneah-backend
 backend ehoneah-backend
         balance roundrobin
         server web-01 35.168.2.92:80 check
         server web-02 34.227.92.50:80 check
-frontend www.saintbassanaga.tech
-    bind *:80
-    bind *:443
-    default_backend web_servers
 frontend alx_frontends
   bind *:443
   default_backend alx_backend
