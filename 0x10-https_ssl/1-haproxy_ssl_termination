@@ -43,9 +43,9 @@ backend ehoneah-backend
         server web-02 34.227.92.50:80 check
 frontend www.saintbassanaga.tech
     bind *:80
-    bind *:443 ssl crt /etc/ssl/certs/saintbassanaga.tech.pem
+    bind *:443
     default_backend web_servers
 frontend alx_frontends
-  bind *:443 ssl crt /etc/haproxy/certs/www.saintbassanaga.tech.pem
+  bind *:443
   default_backend alx_backend
 
