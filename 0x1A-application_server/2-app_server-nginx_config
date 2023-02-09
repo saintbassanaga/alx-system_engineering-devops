@@ -1,3 +1,4 @@
+##
 # You should look at the following URL's in order to grasp a solid understanding
 # of Nginx configuration files in order to fully unleash the power of Nginx.
 # https://www.nginx.com/resources/wiki/start/
@@ -18,29 +19,21 @@
 # Default server configuration
 #
 server {
-	# Use IP of server as domain name
-    	server_name 35.168.2.92;
-
-   	 # Customize HTTP response header
-    	add_header  X-Served-By 62229-web-01;
-
-	# Serve /airbnb-onepage/ route from AirBnB_clone_v2
-    	location = /airbnb-onepage/ {
-        proxy_pass http://0.0.0.0:5000/;
-   	 }
-
 	listen 80 default_server;
-	error_page 404 /error_404.html;
-	location = /error_404.html {
-		root /var/www/html;
-		internal;
-	}
 	listen [::]:80 default_server;
+	add_header X-Served-By "47950-web-01";
 
-	# SSL configuration
+	location /airbnb-onepage {
+		proxy_pass http://127.0.0.1:5000/airbnb-onepage;
+	}
 	location /redirect_me {
 		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
 	}
+    location = /404.html {
+		 root /var/www/default;
+	}
+	error_page 404 /404.html;
+	# SSL configuration
 	#
 	# listen 443 ssl default_server;
 	# listen [::]:443 ssl default_server;
@@ -62,15 +55,13 @@ server {
 	index index.html index.htm index.nginx-debian.html;
 
 	server_name _;
-	rewrite ^/redirect_me https://www.github.com/saintbassanaga permanent;
 
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
 	}
-
-	# pass PHP scripts to FastCGI server
+    	# pass PHP scripts to FastCGI server
 	#
 	#location ~ \.php$ {
 	#	include snippets/fastcgi-php.conf;
